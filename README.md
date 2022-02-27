@@ -12,7 +12,7 @@ Default channel is HTTP (POST)
   "version": "1.0",
   "requestTimestamp": "2022-02-22T16:46:09.499Z",
   "request": {
-    "value": {
+    "values": {
       "Left Thumb": "<base64 url encoded bdb>",
       "Right Iris": "<base64 url encoded bdb>"
     },
@@ -50,7 +50,7 @@ Default channel is HTTP (POST)
   ],
   "response": {
     "Left Thumb": "<base64 url encoded converted data>",
-    "Right Iris": "<base64 url converted data>"
+    "Right Iris": "<base64 url encoded converted data>"
   }
 }
 ```
