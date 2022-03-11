@@ -10,7 +10,7 @@ Default channel is HTTP (POST)
 {
   "id": "sample-converter",
   "version": "1.0",
-  "requestTimestamp": "2022-02-22T16:46:09.499Z",
+  "requesttime": "2022-02-22T16:46:09.499Z",
   "request": {
     "values": {
       "Left Thumb": "<base64 url encoded bdb>",
@@ -41,7 +41,7 @@ Default channel is HTTP (POST)
 {
   "id": "sample-converter",
   "version": "1.0",
-  "responseTimestamp": "2022-02-22T16:46:09.513Z",
+  "responsetime": "2022-02-22T16:46:09.513Z",
   "errors": [
     {
       "errorCode": "string",
