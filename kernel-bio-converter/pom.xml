@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.mosip</groupId>
+	<artifactId>kernel-bio-converter</artifactId>
+	<version>1.2.1-SNAPSHOT</version>
+	<name>kernel-bio-converter</name>
+	<description>kernel-bio-converter</description>
+	<properties>
+		<java.version>11</java.version>
+      	<!-- maven -->
+		<maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+      	<!-- spring -->
+		<spring.boot.version>2.0.2.RELEASE</spring.boot.version>
+		<spring.data.jpa.version>2.0.7.RELEASE</spring.data.jpa.version>
+		<kernel.version>1.2.0-SNAPSHOT</kernel.version>
+		<spring.security.test.version>5.0.5.RELEASE</spring.security.test.version>
+		<spring-cloud-config.version>2.0.4.RELEASE</spring-cloud-config.version>
+		<!-- swagger -->
+		<springdoc.version>1.5.10</springdoc.version>
+		<!-- lombok -->
+		<lombok.version>1.18.8</lombok.version>
+		<!-- logger -->
+		<logback.version>1.2.3</logback.version>
+		<slf4j.version>1.7.19</slf4j.version>
+		<log4j-over-slf4j>1.7.7</log4j-over-slf4j>
+		<jcl.to.slf4j.version>1.7.25</jcl.to.slf4j.version>
+	</properties>
+	<dependencies>
+		<dependency>
+   			<groupId>org.springframework.boot</groupId>
+   			<artifactId>spring-boot-starter-web</artifactId>
+   			<version>${spring.boot.version}</version>
+		</dependency>
+		<dependency>
+   			<groupId>io.mosip.kernel</groupId>
+   			<artifactId>kernel-logger-logback</artifactId>
+   			<version>${kernel.version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.springdoc</groupId>
+		   <artifactId>springdoc-openapi-ui</artifactId>
+		   <version>${springdoc.version}</version>
+		   <exclusions>
+		      <exclusion>
+		         <groupId>org.springframework</groupId>
+		         <artifactId>spring-webmvc</artifactId>
+		      </exclusion>
+		   </exclusions>
+		</dependency>
+		<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-configuration-processor</artifactId>
+		   <version>${spring.boot.version}</version>
+		   <scope>provided</scope>
+		</dependency>
+		<dependency>
+		   <groupId>org.springframework.cloud</groupId>
+		   <artifactId>spring-cloud-starter-config</artifactId>
+		   <version>${spring-cloud-config.version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.projectlombok</groupId>
+		   <artifactId>lombok</artifactId>
+		   <version>${lombok.version}</version>
+		   <scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.mosip.kernel</groupId>
+			<artifactId>kernel-core</artifactId>
+			<version>${kernel.version}</version>
+		</dependency>
+
+	  	<dependency>
+			<groupId>io.mosip.biometric.util</groupId>
+			<artifactId>biometrics-util</artifactId>
+			<version>1.2.1-SNAPSHOT</version>
+		</dependency>		
+
+		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
+		<dependency>
+		    <groupId>org.imgscalr</groupId>
+		    <artifactId>imgscalr-lib</artifactId>
+		    <version>4.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.jai-imageio/jai-imageio-jpeg2000 -->
+		<dependency>
+		    <groupId>com.github.jai-imageio</groupId>
+		    <artifactId>jai-imageio-jpeg2000</artifactId>
+		    <version>1.3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.12.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-compiler-plugin</artifactId>
+			   <version>3.8.0</version>
+			   <configuration>
+			      <source>${maven.compiler.source}</source>
+			      <target>${maven.compiler.target}</target>
+			   </configuration>
+			</plugin>
+				<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
