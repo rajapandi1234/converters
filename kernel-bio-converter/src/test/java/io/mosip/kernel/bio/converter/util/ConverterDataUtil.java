@@ -10,6 +10,7 @@ import io.mosip.biometrics.util.CommonUtil;
 import io.mosip.kernel.bio.converter.constant.SourceFormatCode;
 import io.mosip.kernel.bio.converter.constant.TargetFormatCode;
 import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.web.servlet.MvcResult;
@@ -21,7 +22,6 @@ public class ConverterDataUtil {
 
 	public static void checkResponse(MvcResult rst, long status, SourceFormatCode sourceCode, String expectedCode) {
 		try {
-			logger.info ("ConverterDataUtil>>" + rst.getResponse().getContentAsString () + "   " +rst.getResponse().getStatus ());
 			ObjectMapper mapper = new ObjectMapper();
 			if (rst.getResponse().getContentAsString().isEmpty() && rst.getResponse().getStatus() == 404) {
 				assertEquals(404, rst.getResponse().getStatus());
@@ -29,7 +29,6 @@ public class ConverterDataUtil {
 				Map m = mapper.readValue(rst.getResponse().getContentAsString(), Map.class);
 				assertEquals(status, rst.getResponse().getStatus());
 				if (status == 500 && m.containsKey("errors") && null != m.get("errors")) {
-					logger.info ("ConverterDataUtil>>assertEquals>>" + expectedCode + " ==  " + ((List<Map<String, String>>) m.get("errors")).get(0).get("errorCode"));
 					assertEquals(expectedCode, ((List<Map<String, String>>) m.get("errors")).get(0).get("errorCode"));
 				}
 				else if (status == 200) {
@@ -39,53 +38,15 @@ public class ConverterDataUtil {
 						byte[] responseData = CommonUtil.decodeURLSafeBase64 (entry.getValue());
 						if (expectedCode.equalsIgnoreCase (TargetFormatCode.IMAGE_JPEG.getCode ())){
 							assertEquals(true, isJPEG(responseData));
-							if (sourceCode != null)
-							{
-								FileOutputStream fos = null;
-								switch (sourceCode)
-								{
-									case ISO19794_4_2011:
-										fos = new FileOutputStream ("src/test/resources/finger.jpg");
-										IOUtils.write (responseData, fos);
-										break;
-									case ISO19794_5_2011:
-										fos = new FileOutputStream ("src/test/resources/face.jpg");
-										IOUtils.write (responseData, fos);
-										break;
-									case ISO19794_6_2011:
-										fos = new FileOutputStream ("src/test/resources/iris.jpg");
-										IOUtils.write (responseData, fos);
-										break;
-								}
-							}
 						}
 						else if (expectedCode.equalsIgnoreCase (TargetFormatCode.IMAGE_PNG.getCode ())){
 							assertEquals(true, isPNG(responseData));
-							if (sourceCode != null)
-							{
-								FileOutputStream fos = null;
-								switch (sourceCode)
-								{
-									case ISO19794_4_2011:
-										fos = new FileOutputStream ("src/test/resources/finger.png");
-										IOUtils.write (responseData, fos);
-										break;
-									case ISO19794_5_2011:
-										fos = new FileOutputStream ("src/test/resources/face.png");
-										IOUtils.write (responseData, fos);
-										break;
-									case ISO19794_6_2011:
-										fos = new FileOutputStream ("src/test/resources/iris.png");
-										IOUtils.write (responseData, fos);
-										break;
-								}
-							}
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Assert.fail ();
 		}
 	}
 
