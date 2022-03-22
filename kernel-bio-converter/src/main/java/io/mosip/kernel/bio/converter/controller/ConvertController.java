@@ -47,51 +47,14 @@ public class ConvertController {
 	@PostMapping(value = "/convert", produces = "application/json")
 	public ResponseWrapper<Map<String, String>> convert(
 		@RequestBody @Valid RequestWrapper<ConvertRequestDto> convertRequestDto) throws Exception {
-		
-		ConverterErrorCode errorCode = null;
 		ResponseWrapper<Map<String, String>> responseDto = new ResponseWrapper<Map<String, String>>();
 
-		try
-		{
-			if (convertRequestDto.getRequest().getValues() == null || convertRequestDto.getRequest().getValues().isEmpty())
-			{
-				errorCode = ConverterErrorCode.INVALID_REQUEST_EXCEPTION;
-				throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage());
-			}
+		responseDto.setResponse (converterService.convert(convertRequestDto.getRequest().getValues(),
+			convertRequestDto.getRequest().getSourceFormat(),
+			convertRequestDto.getRequest().getTargetFormat(),
+			convertRequestDto.getRequest().getSourceParameters(),
+			convertRequestDto.getRequest().getTargetParameters()));
 
-			String sourceFormat = convertRequestDto.getRequest().getSourceFormat();
-			if (sourceFormat.trim().length() == 0 || !SourceFormatCode.validCode(sourceFormat))
-			{
-				errorCode = ConverterErrorCode.INVALID_SOURCE_EXCEPTION;
-				throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage());
-			}
-
-			String targetFormat = convertRequestDto.getRequest().getTargetFormat();
-			if (targetFormat.trim().length() == 0 || !TargetFormatCode.validCode(targetFormat))
-			{
-				errorCode = ConverterErrorCode.INVALID_TARGET_EXCEPTION;
-				throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage());
-			}
-
-			if (SourceFormatCode.fromCode(sourceFormat).getCode ().equalsIgnoreCase (SourceFormatCode.ISO19794_6_2011.getCode ()) &&
-				TargetFormatCode.fromCode(targetFormat).getCode ().equalsIgnoreCase (TargetFormatCode.ISO19794_6_2011_JPEG.getCode ()))
-			{
-				errorCode = ConverterErrorCode.TARGET_FORMAT_EXCEPTION;
-				throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage());
-			}
-
-			responseDto.setResponse (converterService.convert(convertRequestDto.getRequest().getValues(),
-				convertRequestDto.getRequest().getSourceFormat(),
-				convertRequestDto.getRequest().getTargetFormat(),
-				convertRequestDto.getRequest().getSourceParameters(),
-				convertRequestDto.getRequest().getTargetParameters()));
-		}
-		catch (ConversionException ex)
-		{
-			responseDto.setResponse(null);
-			errorCode = ConverterErrorCode.fromErrorCode(ex.getErrorCode());
-			throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage());
-		}
 		return responseDto;
 	}
 }

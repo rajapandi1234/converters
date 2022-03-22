@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -15,7 +16,7 @@ import lombok.Data;
 @Data
 public class ConvertRequestDto {
     @NotNull(message = "Values code can not be null")
-    @NotEmpty(message = "Values entry can not be empty")
+    @Size(min=1, message = "Minimum one entry required")
 	public Map<String, String> values;
     @NotNull(message = "SourceFormat code can not be null")
     @NotBlank(message = "SourceFormat code can not be blank")

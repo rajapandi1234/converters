@@ -93,7 +93,7 @@ public class ConvertControllerTest {
 			"\"values\":{" +
 				"}," +
 			"\"sourceFormat\":\"ISO19794_4_2011\"," +
-			"\"targetFormat\":\"string\"," +
+			"\"targetFormat\":\"IMAGE/JPEG\"," +
 			"\"sourceParameters\":{" +
 				"\"key\":\"value\"" +
 			"}," +
@@ -367,7 +367,7 @@ public class ConvertControllerTest {
 
 		ConverterDataUtil.checkResponse(mockMvc.perform(MockMvcRequestBuilders.post("/convert").
 						contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-				.andReturn(), 500,null,"MOS-CNV-011");
+				.andReturn(), 500,null,"MOS-CNV-004");
 	}
 
 	/*

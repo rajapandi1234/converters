@@ -29,6 +29,9 @@ import io.mosip.kernel.bio.converter.constant.TargetFormatCode;
 import io.mosip.kernel.bio.converter.exception.ConversionException;
 import io.mosip.kernel.bio.converter.service.IConverterApi;
 
+import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.INVALID_TARGET_EXCEPTION;
+import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.NOT_SUPPORTED_COMPRESSION_TYPE;
+
 /**
  * This class implements handling conversion of ISO format to JPEG or PNG Image format 
  * 
@@ -42,6 +45,7 @@ public class ConverterServiceImpl implements IConverterApi
 	@Override
 	public Map<String, String> convert(Map<String, String> values, String sourceFormat, String targetFormat,
 		Map<String, String> sourceParameters, Map<String, String> targetParameters) throws ConversionException {
+		ConverterErrorCode errorCode = null;
 		Map<String, String> targetValues = new HashMap<String, String> ();
 		
 		SourceFormatCode sourceCode = SourceFormatCode.fromCode(sourceFormat);
@@ -52,7 +56,7 @@ public class ConverterServiceImpl implements IConverterApi
 			String isoData = entry.getValue();
 			if (isoData == null || isoData.trim ().length () == 0)
 			{
-				ConverterErrorCode errorCode = ConverterErrorCode.SOURCE_CAN_NOT_BE_EMPTY_OR_NULL_EXCEPTION;
+				errorCode = ConverterErrorCode.SOURCE_CAN_NOT_BE_EMPTY_OR_NULL_EXCEPTION;
 				throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage ());
 			}
 
@@ -70,6 +74,9 @@ public class ConverterServiceImpl implements IConverterApi
 				case ISO19794_6_2011:
 					targetValue = convertIrisIsoToImageType(sourceCode, entry.getValue(), targetCode, targetParameters);
 					break;
+				default:
+					errorCode = ConverterErrorCode.INVALID_SOURCE_EXCEPTION;
+					throw new ConversionException (errorCode.getErrorCode(), errorCode.getErrorMessage());
 			}
 			targetValues.put(entry.getKey(), targetValue);
 		}
@@ -123,7 +130,7 @@ public class ConverterServiceImpl implements IConverterApi
 				outImageData = convertBufferedImageToBytes(targetCode, outImage);
 				break;
 			default:
-				break;
+				throw new ConversionException (NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(), NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
 		if (outImageData != null)
 		{
@@ -171,7 +178,7 @@ public class ConverterServiceImpl implements IConverterApi
 				outImageData = convertBufferedImageToBytes(targetCode, outImage);
 				break;
 			default:
-				break;
+				throw new ConversionException (NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(), NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
 		if (outImageData != null)
 		{
@@ -219,7 +226,7 @@ public class ConverterServiceImpl implements IConverterApi
 				outImageData = convertBufferedImageToBytes(targetCode, outImage);
 				break;
 			default:
-				break;
+				throw new ConversionException (NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(), NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
 		if (outImageData != null)
 		{
@@ -236,8 +243,7 @@ public class ConverterServiceImpl implements IConverterApi
 			case IMAGE_PNG:
 				return CommonUtil.convertBufferedImageToPNGBytes(outImage);
 			default:
-				break;
+				throw new ConversionException (INVALID_TARGET_EXCEPTION.getErrorCode(), INVALID_TARGET_EXCEPTION.getErrorMessage ());
 		}	
-		return null;
-	}	
+	}
 }

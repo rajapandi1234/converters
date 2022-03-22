@@ -1,5 +1,7 @@
 package io.mosip.kernel.bio.converter.constant;
 
+import io.mosip.kernel.bio.converter.exception.ConversionException;
+
 /**
  * SourceFormatCode Enum for the services Source Format.
  * 
@@ -29,7 +31,7 @@ public enum SourceFormatCode {
 	        	return sourceCode;
 	    	}
 		}
-		return null;
+		throw new ConversionException (ConverterErrorCode.INVALID_SOURCE_EXCEPTION.getErrorCode(), ConverterErrorCode.INVALID_SOURCE_EXCEPTION.getErrorMessage());
 	}
 	 
 	public static boolean validCode(String sourceCodeName) {

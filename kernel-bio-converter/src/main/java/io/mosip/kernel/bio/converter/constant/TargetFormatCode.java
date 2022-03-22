@@ -1,5 +1,7 @@
 package io.mosip.kernel.bio.converter.constant;
 
+import io.mosip.kernel.bio.converter.exception.ConversionException;
+
 /**
  * TargetFormatCode Enum for the services Target Format.
  * 
@@ -11,7 +13,7 @@ public enum TargetFormatCode {
 	IMAGE_PNG("IMAGE/PNG", "png format"),
 	ISO19794_4_2011_JPEG("ISO19794_4_2011/JPEG", "Finger ISO format to Finger ISO format with JPEG IMAGE"),
 	ISO19794_5_2011_JPEG("ISO19794_5_2011/JPEG", "Face ISO format to Finger ISO format with JPEG IMAGE"),
-	ISO19794_6_2011_JPEG("ISO19794_6_2011/JPEG", "Iris ISO format to Finger ISO format with JPEG IMAGE"),
+	//ISO19794_6_2011_JPEG("ISO19794_6_2011/JPEG", "Iris ISO format to Finger ISO format with JPEG IMAGE"),
 	ISO19794_4_2011_PNG("ISO19794_4_2011/PNG", "Finger ISO format to Finger ISO format with PNG IMAGE"),
 	ISO19794_5_2011_PNG("ISO19794_5_2011/PNG", "Face ISO format to Finger ISO format with PNG IMAGE"),
 	ISO19794_6_2011_PNG("ISO19794_6_2011/PNG", "Iris ISO format to Finger ISO format with PNG IMAGE");
@@ -34,7 +36,7 @@ public enum TargetFormatCode {
 	        	return targetCode;
 	    	}
 		}
-		return null;
+		throw new ConversionException (ConverterErrorCode.INVALID_TARGET_EXCEPTION.getErrorCode(), ConverterErrorCode.INVALID_TARGET_EXCEPTION.getErrorMessage());
 	}
 
 	public static boolean validCode(String targetCodeName) {

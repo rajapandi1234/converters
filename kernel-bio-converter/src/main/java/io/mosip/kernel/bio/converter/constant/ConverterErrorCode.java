@@ -18,7 +18,8 @@ public enum ConverterErrorCode {
 	SOURCE_NOT_VALID_FACE_ISO_FORMAT_EXCEPTION("MOS-CNV-009", "Source not valid ISO ISO19794_5_2011"),
 	SOURCE_NOT_VALID_IRIS_ISO_FORMAT_EXCEPTION("MOS-CNV-010", "Source not valid ISO ISO19794_6_2011"),
 	TARGET_FORMAT_EXCEPTION("MOS-CNV-011", "Target Format(ISO19794_6_2011_JPEG) Not Supported For the Given Source Format(ISO19794_6_2011)"),
-	
+	NOT_SUPPORTED_COMPRESSION_TYPE("MOS-CNV-012", "Not Supported Compression Type"),
+
 	TECHNICAL_ERROR_EXCEPTION("MOS-CNV-500", "Technical Error");
 
 	private final String errorCode;
