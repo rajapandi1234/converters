@@ -29,6 +29,7 @@ import io.mosip.kernel.core.http.RequestWrapper;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
 * Convert Handler Controller Test
@@ -79,7 +80,7 @@ public class ConvertControllerTest {
 		
 		ConverterDataUtil.checkResponse(mockMvc.perform(MockMvcRequestBuilders.post("/convert")
 			.contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-			.andReturn(), 500,null,"MOS-CNV-001");
+			.andReturn(), 500,null,"MOS-CNV-500");
 	}
 
 	/*
@@ -104,7 +105,7 @@ public class ConvertControllerTest {
 		
 		ConverterDataUtil.checkResponse(mockMvc.perform(MockMvcRequestBuilders.post("/convert").
 			contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-			.andReturn(), 500,null,"MOS-CNV-002");
+			.andReturn(), 500,null,"MOS-CNV-500");
 	}
 
 	/*
@@ -117,7 +118,7 @@ public class ConvertControllerTest {
 			"\"values\":{" +
 				"\"Left Thumb\": \"values\""+
 				"}," +
-			"\"sourceFormat\":\"\"," +
+			"\"sourceFormat\":\" \"," +
 			"\"targetFormat\":\"string\"," +
 			"\"sourceParameters\":{" +
 				"\"key\":\"value\"" +
@@ -131,7 +132,7 @@ public class ConvertControllerTest {
 		
 		ConverterDataUtil.checkResponse(mockMvc.perform(MockMvcRequestBuilders.post("/convert").
 			contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-			.andReturn(), 500,null,"MOS-CNV-003");
+			.andReturn(), 500,null,"MOS-CNV-500");
 	}
 
 	/*
@@ -183,7 +184,7 @@ public class ConvertControllerTest {
 		
 		ConverterDataUtil.checkResponse(mockMvc.perform(MockMvcRequestBuilders.post("/convert").
 			contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-			.andReturn(), 500,null,"MOS-CNV-004");
+			.andReturn(), 500,null,"MOS-CNV-500");
 	}
 
 	/*
@@ -375,7 +376,7 @@ public class ConvertControllerTest {
 	@Test
 	public void t012ConvertTest() throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/finger.txt");
-		String bioData = IOUtils.toString(fis, "UTF-8");
+		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
 		String req=
 		"{" +
 			"\"values\":{" +
@@ -403,7 +404,7 @@ public class ConvertControllerTest {
 	@Test
 	public void t0121ConvertTest() throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/finger.txt");
-		String bioData = IOUtils.toString(fis, "UTF-8");
+		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
 		String req=
 		"{" +
 			"\"values\":{" +
@@ -431,7 +432,7 @@ public class ConvertControllerTest {
 	@Test
 	public void t013ConvertTest() throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/face.txt");
-		String bioData = IOUtils.toString(fis, "UTF-8");
+		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
 		String req=
 		"{" +
 			"\"values\":{" +
@@ -459,7 +460,7 @@ public class ConvertControllerTest {
 	@Test
 	public void t0131ConvertTest() throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/face.txt");
-		String bioData = IOUtils.toString(fis, "UTF-8");
+		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
 		String req=
 		"{" +
 			"\"values\":{" +
@@ -487,7 +488,7 @@ public class ConvertControllerTest {
 	@Test
 	public void t014ConvertTest() throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/iris.txt");
-		String bioData = IOUtils.toString(fis, "UTF-8");
+		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
 
 		String req=
 		"{" +
@@ -516,7 +517,7 @@ public class ConvertControllerTest {
 	@Test
 	public void t0141ConvertTest() throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/iris.txt");
-		String bioData = IOUtils.toString(fis, "UTF-8");
+		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
 
 		String req=
 		"{" +

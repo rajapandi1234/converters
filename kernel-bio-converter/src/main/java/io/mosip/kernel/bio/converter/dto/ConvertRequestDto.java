@@ -2,9 +2,10 @@ package io.mosip.kernel.bio.converter.dto;
 
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -13,14 +14,17 @@ import lombok.Data;
 */
 @Data
 public class ConvertRequestDto {
-    @JsonProperty
+    @NotNull(message = "Values code can not be null")
+    @NotEmpty(message = "Values entry can not be empty")
 	public Map<String, String> values;
-    @JsonProperty
+    @NotNull(message = "SourceFormat code can not be null")
+    @NotBlank(message = "SourceFormat code can not be blank")
+    @NotEmpty(message = "SourceFormat code can not be empty")
     public String sourceFormat;
-    @JsonProperty
+    @NotNull(message = "TargetFormat code can not be null")
+    @NotBlank(message = "TargetFormat code can not be blank")
+    @NotEmpty(message = "TargetFormat code can not be empty")
     public String targetFormat;
-    @JsonProperty
     public Map<String, String> sourceParameters;
-    @JsonProperty
     public Map<String, String> targetParameters;
 }
