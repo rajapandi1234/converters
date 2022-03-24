@@ -123,13 +123,13 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEVOPS_WEBHOOK }} # required
         if: failure() # Pick up events even if the job fails or is canceled.
 
-  docker-print:
+  docker-kernel-bio-converter:
     needs: build
     runs-on: ubuntu-latest
     env:
       NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
-      SERVICE_NAME: print
-      SERVICE_LOCATION: print
+      SERVICE_NAME: kernel-bio-converter
+      SERVICE_LOCATION: ./kernel-bio-converter
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
@@ -148,9 +148,6 @@ jobs:
         with:
           xml-file: /pom.xml
           xpath: /*[local-name()="project"]/*[local-name()="version"]
-
-      - name: Unzip and extract the print
-        run: unzip -uj "release.zip" "target/*" -d "target"
 
       - name: Get current date
         id: date
