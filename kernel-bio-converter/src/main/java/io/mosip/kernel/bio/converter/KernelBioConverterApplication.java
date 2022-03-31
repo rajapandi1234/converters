@@ -2,10 +2,8 @@ package io.mosip.kernel.bio.converter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 
-@SpringBootApplication (exclude= {SecurityAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class})
+@SpringBootApplication (scanBasePackages = {"${mosip.auth.adapter.impl.basepackage}, io.mosip.kernel.bio.*"})
 public class KernelBioConverterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KernelBioConverterApplication.class, args);
