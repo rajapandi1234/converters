@@ -48,7 +48,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -B package -s $GITHUB_WORKSPACE/settings.xml --file pom.xml
+          cd kernel-bio-converter && mvn -B package -s $GITHUB_WORKSPACE/settings.xml --file pom.xml
 
       - name: Ready the springboot artifacts
         run: find -name '*.jar' -executable -type f  -exec zip release.zip {} +
@@ -106,11 +106,11 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn -B package -s $GITHUB_WORKSPACE/settings.xml --file pom.xml
+          cd kernel-bio-converter && mvn -B package -s $GITHUB_WORKSPACE/settings.xml --file pom.xml
 
       - name: Publish the maven package
         run: |
-          mvn deploy  -DaltDeploymentRepository=ossrh::default::${{ secrets.OSSRH_SNAPSHOT_URL }} -s $GITHUB_WORKSPACE/settings.xml -f pom.xml
+          cd kernel-bio-converter && mvn deploy  -DaltDeploymentRepository=ossrh::default::${{ secrets.OSSRH_SNAPSHOT_URL }} -s $GITHUB_WORKSPACE/settings.xml -f pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           GPG_TTY: $(tty)
@@ -214,7 +214,7 @@ jobs:
 
       - name: Analyze with SonarCloud
         run: |
-          mvn -B -Dgpg.skip verify sonar:sonar -Dsonar.projectKey=mosip_${{ github.event.repository.name }} -Dsonar.organization=${{ secrets.ORG_KEY }} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          cd kernel-bio-converter && mvn -B -Dgpg.skip verify sonar:sonar -Dsonar.projectKey=mosip_${{ github.event.repository.name }} -Dsonar.organization=${{ secrets.ORG_KEY }} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
