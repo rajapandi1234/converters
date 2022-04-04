@@ -117,9 +117,13 @@
 			      <target>${maven.compiler.target}</target>
 			   </configuration>
 			</plugin>
-				<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+			<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                    			<executable>true</executable>
+                    			<layout>JAR</layout>
+                		</configuration>
 			</plugin>
 		</plugins>
 	</build>
