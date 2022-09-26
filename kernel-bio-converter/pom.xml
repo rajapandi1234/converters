@@ -15,7 +15,7 @@
       	<!-- spring -->
 		<spring.boot.version>2.0.2.RELEASE</spring.boot.version>
 		<spring.data.jpa.version>2.0.7.RELEASE</spring.data.jpa.version>
-		<kernel.version>1.2.0-SNAPSHOT</kernel.version>
+		<kernel.version>1.2.1-SNAPSHOT</kernel.version>
 		<spring.security.test.version>5.0.5.RELEASE</spring.security.test.version>
 		<spring-cloud-config.version>2.0.4.RELEASE</spring-cloud-config.version>
 		<!-- swagger -->
@@ -104,10 +104,77 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.12.0</version>
 		</dependency>
-	</dependencies>
 
+		<!-- comment while uploading -->
+		<!--
+		
+		<dependency>
+			<groupId>io.mosip.kernel</groupId>
+			<artifactId>kernel-auth-adapter</artifactId>
+			<version>${kernel.version}</version>
+		</dependency>
+		-->
+		
+		<!-- https://mvnrepository.com/artifact/io.vertx/vertx-core -->
+		<!--
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+		-->
+	</dependencies>
+	<repositories>
+	    <repository>
+	        <id>ossrh</id>
+	        <name>CentralRepository</name>
+	        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+	        <layout>default</layout>
+	        <snapshots>
+	        <enabled>true</enabled>
+	        </snapshots>
+	    </repository>
+	    <repository>
+	        <id>central</id>
+	        <name>MavenCentral</name>
+	        <layout>default</layout>
+	        <url>https://repo1.maven.org/maven2</url>
+	        <snapshots>
+	        <enabled>false</enabled>
+	        </snapshots>
+	    </repository>
+	</repositories>
 	<build>
 		<plugins>
+			<plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-source-plugin</artifactId>
+                  <version>2.2.1</version>
+                  <executions>
+                        <execution>
+                          <id>attach-sources</id>
+                          <goals>
+                                <goal>jar-no-fork</goal>
+                          </goals>
+                        </execution>
+                  </executions>
+                </plugin>
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-javadoc-plugin</artifactId>
+                  <version>3.2.0</version>
+                  <executions>
+                        <execution>
+                          <id>attach-javadocs</id>
+                          <goals>
+                                <goal>jar</goal>
+                          </goals>
+                        </execution>
+                  </executions>
+                  <configuration>
+                    <doclint>none</doclint>
+                  </configuration>
+        	</plugin>
 			<plugin>
 			   <groupId>org.apache.maven.plugins</groupId>
 			   <artifactId>maven-compiler-plugin</artifactId>
@@ -117,23 +184,30 @@
 			      <target>${maven.compiler.target}</target>
 			   </configuration>
 			</plugin>
-            		<plugin>
-                		<groupId>org.springframework.boot</groupId>
-                		<artifactId>spring-boot-maven-plugin</artifactId>
-                		<version>${spring.boot.version}</version>
-                		<configuration>
-                    			<executable>true</executable>
-                    			<layout>JAR</layout>
-                		</configuration>
-                		<executions>
-                    			<execution>
-                        		<goals>
-                            			<goal>build-info</goal>
-                            			<goal>repackage</goal>
-                        		</goals>
-                    		</execution>
-                		</executions>
-            		</plugin>
+				<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<includes>
+				            	<include>**/constant/*</include>
+				            	<include>**/dto/*</include>
+				            	<include>**/exception/*</include>
+				            	<include>**/service/**</include>
+				          	</includes>
+							<classifier>lib</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

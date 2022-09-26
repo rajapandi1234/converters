@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import org.jnbis.api.model.Bitmap;
 import org.jnbis.internal.WsqDecoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.mosip.biometrics.util.CommonUtil;
@@ -42,6 +43,10 @@ import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.NOT_SUPP
 @Service
 public class ConverterServiceImpl implements IConverterApi 
 {	
+	@Autowired
+    public ConverterServiceImpl() {
+    }
+	
 	@Override
 	public Map<String, String> convert(Map<String, String> values, String sourceFormat, String targetFormat,
 		Map<String, String> sourceParameters, Map<String, String> targetParameters) throws ConversionException {
