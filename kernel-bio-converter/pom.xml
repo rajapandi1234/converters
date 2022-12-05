@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.mosip</groupId>
 	<artifactId>kernel-bio-converter</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.2.0.1-SNAPSHOT</version>
 	<name>kernel-bio-converter</name>
 	<description>kernel-bio-converter</description>
 	<properties>
@@ -15,7 +15,7 @@
       	<!-- spring -->
 		<spring.boot.version>2.0.2.RELEASE</spring.boot.version>
 		<spring.data.jpa.version>2.0.7.RELEASE</spring.data.jpa.version>
-		<kernel.version>1.2.1-SNAPSHOT</kernel.version>
+		<kernel.version>1.2.0.1-SNAPSHOT</kernel.version>
 		<spring.security.test.version>5.0.5.RELEASE</spring.security.test.version>
 		<spring-cloud-config.version>2.0.4.RELEASE</spring-cloud-config.version>
 		<!-- swagger -->
@@ -82,7 +82,7 @@
 	  	<dependency>
 			<groupId>io.mosip.biometric.util</groupId>
 			<artifactId>biometrics-util</artifactId>
-			<version>1.2.1-SNAPSHOT</version>
+			<version>1.2.0.1-SNAPSHOT</version>
 		</dependency>		
 
 		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
