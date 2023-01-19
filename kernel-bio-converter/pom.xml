@@ -27,6 +27,7 @@
 		<slf4j.version>1.7.19</slf4j.version>
 		<log4j-over-slf4j>1.7.7</log4j-over-slf4j>
 		<jcl.to.slf4j.version>1.7.25</jcl.to.slf4j.version>
+		<biometrics-util.version>1.2.1-SNAPSHOT</biometrics-util.version>
 		<!-- Auth adapter remove   -->
 	</properties>
 	<dependencies>
@@ -82,7 +83,7 @@
 	  	<dependency>
 			<groupId>io.mosip.biometric.util</groupId>
 			<artifactId>biometrics-util</artifactId>
-			<version>1.2.1-SNAPSHOT</version>
+			<version>${biometrics-util.version}</version>
 		</dependency>		
 
 		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
@@ -184,7 +185,7 @@
 			      <target>${maven.compiler.target}</target>
 			   </configuration>
 			</plugin>
-				<plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>

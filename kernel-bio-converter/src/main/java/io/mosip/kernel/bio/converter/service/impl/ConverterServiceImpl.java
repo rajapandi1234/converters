@@ -104,20 +104,24 @@ public class ConverterServiceImpl implements IConverterApi
 		}
 		
 		FingerBDIR bdir;
+		int inCompressionType = -1;		
+		byte [] inImageData = null;
 		try {
 			bdir = FingerDecoder.getFingerBDIR(requestDto);
+
+			inCompressionType = bdir.getCompressionType();		
+			inImageData = bdir.getImage();
 		} catch (Exception e) {
 			errorCode = ConverterErrorCode.SOURCE_NOT_VALID_FINGER_ISO_FORMAT_EXCEPTION;
 			throw new ConversionException (errorCode.getErrorCode(), e.getLocalizedMessage());
 		}
 
-		FingerImageCompressionType inCompressionType = bdir.getRepresentation().getRepresentationHeader().getCompressionType();		
-		byte [] inImageData = bdir.getRepresentation().getRepresentationBody().getImageData().getImage();
 		BufferedImage outImage = null;
 		byte [] outImageData = null; 
 		switch(inCompressionType)
 		{
-			case JPEG_2000_LOSS_LESS:
+			case FingerImageCompressionType.JPEG_2000_LOSSY:
+			case FingerImageCompressionType.JPEG_2000_LOSS_LESS:
 				try {
 					outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 					// change here outImage width, height, dpi here based on targetParameters 
@@ -127,7 +131,7 @@ public class ConverterServiceImpl implements IConverterApi
 				}
 				outImageData = convertBufferedImageToBytes(targetCode, outImage);
 				break;
-			case WSQ:
+			case FingerImageCompressionType.WSQ:
 				WsqDecoder decoder = new WsqDecoder ();
 				Bitmap bitmap = decoder.decode(inImageData);
 				outImage = CommonUtil.convert(bitmap);
@@ -159,20 +163,24 @@ public class ConverterServiceImpl implements IConverterApi
 		}
 
 		FaceBDIR bdir;
+		int inImageDataType = -1;
+		byte [] inImageData = null;
 		try {
 			bdir = FaceDecoder.getFaceBDIR(requestDto);
+			
+			inImageDataType = bdir.getImageDataType();
+			inImageData = bdir.getImage();
 		} catch (Exception e) {
 			errorCode = ConverterErrorCode.SOURCE_NOT_VALID_FACE_ISO_FORMAT_EXCEPTION;
 			throw new ConversionException (errorCode.getErrorCode(), e.getLocalizedMessage());
 		}
 
-		ImageDataType inCompressionType = bdir.getRepresentation().getRepresentationHeader().getImageInformation().getImageDataType();
-		byte [] inImageData = bdir.getRepresentation().getRepresentationData().getImageData().getImage();
 		BufferedImage outImage = null;
 		byte [] outImageData = null; 
-		switch(inCompressionType)
+		switch(inImageDataType)
 		{
-			case JPEG2000_LOSS_LESS:
+			case ImageDataType.JPEG2000_LOSSY:
+			case ImageDataType.JPEG2000_LOSS_LESS:
 				try {
 					outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 					// change here outImage width, height, dpi here based on targetParameters 
@@ -206,21 +214,24 @@ public class ConverterServiceImpl implements IConverterApi
 			throw new ConversionException (errorCode.getErrorCode(), e.getLocalizedMessage());
 		}
 
+		int inImageFormat = -1;
+		byte [] inImageData = null;
 		IrisBDIR bdir;
 		try {
 			bdir = IrisDecoder.getIrisBDIR(requestDto);
+
+			inImageFormat = bdir.getImageFormat();
+			inImageData = bdir.getImage();
 		} catch (Exception e) {
 			errorCode = ConverterErrorCode.SOURCE_NOT_VALID_IRIS_ISO_FORMAT_EXCEPTION;
 			throw new ConversionException (errorCode.getErrorCode(), e.getLocalizedMessage());
 		}
 
-		ImageFormat inCompressionType = bdir.getRepresentation().getRepresentationHeader().getImageInformation().getImageFormat();
-		byte [] inImageData = bdir.getRepresentation().getRepresentationData().getImageData().getImage();
 		BufferedImage outImage = null;
 		byte [] outImageData = null; 
-		switch(inCompressionType)
+		switch(inImageFormat)
 		{
-			case MONO_JPEG2000_LOSS_LESS:
+			case ImageFormat.MONO_JPEG2000:
 				try {
 					outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 					// change here outImage width, height, dpi here based on targetParameters 

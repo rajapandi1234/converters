@@ -298,7 +298,7 @@ public class ConvertControllerTest {
 
 		ConverterDataUtil.checkResponse(mockMvc.perform(post("/convert").
 						contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-				.andReturn(), 500,null,"MOS-CNV-008");
+				.andReturn(), 500, null, "MOS-CNV-008");
 	}
 
 	/*
