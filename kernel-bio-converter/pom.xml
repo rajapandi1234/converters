@@ -16,6 +16,7 @@
 		<spring.boot.version>2.0.2.RELEASE</spring.boot.version>
 		<spring.data.jpa.version>2.0.7.RELEASE</spring.data.jpa.version>
 		<kernel.version>1.2.0.1-B2</kernel.version>
+		<kernel.logger.version>1.2.0.1-B1</kernel.logger.version>
 		<spring.security.test.version>5.0.5.RELEASE</spring.security.test.version>
 		<spring-cloud-config.version>2.0.4.RELEASE</spring-cloud-config.version>
 		<!-- swagger -->
@@ -44,7 +45,7 @@
 		<dependency>
    			<groupId>io.mosip.kernel</groupId>
    			<artifactId>kernel-logger-logback</artifactId>
-   			<version>${kernel.version}</version>
+   			<version>${kernel.logger.version}</version>
 		</dependency>
 		<dependency>
 		   <groupId>org.springdoc</groupId>
