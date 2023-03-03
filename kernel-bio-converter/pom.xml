@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.mosip</groupId>
 	<artifactId>kernel-bio-converter</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.2.0.1-B1-SNAPSHOT</version>
 	<name>kernel-bio-converter</name>
 	<description>kernel-bio-converter</description>
 	<properties>
@@ -15,7 +15,7 @@
       	<!-- spring -->
 		<spring.boot.version>2.0.2.RELEASE</spring.boot.version>
 		<spring.data.jpa.version>2.0.7.RELEASE</spring.data.jpa.version>
-		<kernel.version>1.2.1-SNAPSHOT</kernel.version>
+		<kernel.version>1.2.0.1-B2</kernel.version>
 		<spring.security.test.version>5.0.5.RELEASE</spring.security.test.version>
 		<spring-cloud-config.version>2.0.4.RELEASE</spring-cloud-config.version>
 		<!-- swagger -->
@@ -27,7 +27,7 @@
 		<slf4j.version>1.7.19</slf4j.version>
 		<log4j-over-slf4j>1.7.7</log4j-over-slf4j>
 		<jcl.to.slf4j.version>1.7.25</jcl.to.slf4j.version>
-		<biometrics-util.version>1.2.1-SNAPSHOT</biometrics-util.version>
+		<biometrics-util.version>1.2.0.1-B1-SNAPSHOT</biometrics-util.version>
 		<!-- Auth adapter remove   -->
 	</properties>
 	<dependencies>
