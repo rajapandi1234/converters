@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.mosip</groupId>
 	<artifactId>kernel-bio-converter</artifactId>
-	<version>1.2.0.1-B1-SNAPSHOT</version>
+	<version>1.2.0.1-B1</version>
 	<name>kernel-bio-converter</name>
 	<description>kernel-bio-converter</description>
 	<properties>
@@ -28,7 +28,7 @@
 		<slf4j.version>1.7.19</slf4j.version>
 		<log4j-over-slf4j>1.7.7</log4j-over-slf4j>
 		<jcl.to.slf4j.version>1.7.25</jcl.to.slf4j.version>
-		<biometrics-util.version>1.2.0.1-B1-SNAPSHOT</biometrics-util.version>
+		<biometrics-util.version>1.2.0.1-B1</biometrics-util.version>
 		<!-- Auth adapter remove   -->
 	</properties>
 	<dependencies>
