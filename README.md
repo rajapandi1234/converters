@@ -4,7 +4,6 @@ This project has the implementation for biometric and document converters.
 
 ## Channel:
 Default channel is HTTP (POST)
-
 ## Request:
 ```
 {
