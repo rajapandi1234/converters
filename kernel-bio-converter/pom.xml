@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.mosip.kernel</groupId>
 	<artifactId>kernel-bio-converter</artifactId>
-	<version>1.2.0.1-SNAPSHOT</version>
+	<version>1.2.0.1</version>
 	<name>kernel-bio-converter</name>
 	<description>kernel-bio-converter</description>
 	<url>https://github.com/mosip/id-authentication</url>
@@ -53,11 +53,11 @@
 		<jcl.to.slf4j.version>1.7.25</jcl.to.slf4j.version>
 
 		<!-- Mosip kernel -->		
-		<kernel.core.version>1.2.0.1-SNAPSHOT</kernel.core.version>
-		<kernel.logger.logback.version>1.2.0.1-SNAPSHOT</kernel.logger.logback.version>
+		<kernel.core.version>1.2.0.1</kernel.core.version>
+		<kernel.logger.logback.version>1.2.0.1</kernel.logger.logback.version>
 
 		<!-- Mosip Others -->		
-		<biometrics-util.version>1.2.0.1-SNAPSHOT</biometrics-util.version>
+		<biometrics-util.version>1.2.0.1</biometrics-util.version>
 		<!-- Auth adapter remove   -->
 	</properties>
 	<dependencies>
@@ -272,7 +272,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<version>1.5</version>
-				<!--<configuration><skip>true</skip></configuration>-->
+				<!--<configuration><skip>false</skip></configuration>-->
 				<executions>
 					<execution>
 						<id>sign-artifacts</id>
