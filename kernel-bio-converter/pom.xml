@@ -54,11 +54,11 @@
 		<jcl.to.slf4j.version>1.7.25</jcl.to.slf4j.version>
 
 		<!-- Mosip kernel -->		
-		<kernel.core.version>1.2.0.1</kernel.core.version>
-		<kernel.logger.logback.version>1.2.0.1</kernel.logger.logback.version>
+		<kernel.core.version>1.2.1-SNAPSHOT</kernel.core.version>
+		<kernel.logger.logback.version>1.2.1-SNAPSHOT</kernel.logger.logback.version>
 
 		<!-- Mosip Others -->		
-		<biometrics-util.version>1.2.0.1</biometrics-util.version>
+		<biometrics-util.version>1.2.1-SNAPSHOT</biometrics-util.version>
 		<!-- Auth adapter remove   -->
 	</properties>
 	<dependencies>
@@ -331,6 +331,7 @@
 	</build>
 
 </project>
+<<<<<<< HEAD
 =======
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -631,3 +632,5 @@
 
 </project>
 >>>>>>> [MOSIP-29208] Updated workflows as per reusable workflows templates
+=======
+>>>>>>> Update pom.xml
