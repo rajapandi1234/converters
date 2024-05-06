@@ -3,13 +3,13 @@ package io.mosip.kernel.bio.converter.util;
 import static org.junit.Assert.assertEquals;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
 import io.mosip.biometrics.util.CommonUtil;
 import io.mosip.kernel.bio.converter.constant.SourceFormatCode;
 import io.mosip.kernel.bio.converter.constant.TargetFormatCode;
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +22,11 @@ public class ConverterDataUtil {
 
 	public static void checkResponse(MvcResult rst, long status, SourceFormatCode sourceCode, String expectedCode) {
 		try {
-			ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper jsonMapper = new ObjectMapper();
 			if (rst.getResponse().getContentAsString().isEmpty() && rst.getResponse().getStatus() == 404) {
 				assertEquals(404, rst.getResponse().getStatus());
 			} else {
-				Map m = mapper.readValue(rst.getResponse().getContentAsString(), Map.class);
+				Map m = jsonMapper.readValue(rst.getResponse().getContentAsString(Charset.defaultCharset()), Map.class);
 				assertEquals(status, rst.getResponse().getStatus());
 				if (status == 500 && m.containsKey("errors") && null != m.get("errors")) {
 					assertEquals(expectedCode, ((List<Map<String, String>>) m.get("errors")).get(0).get("errorCode"));
@@ -45,7 +45,8 @@ public class ConverterDataUtil {
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch (Exception ex) {
+			ex.printStackTrace();
 			Assert.fail ();
 		}
 	}

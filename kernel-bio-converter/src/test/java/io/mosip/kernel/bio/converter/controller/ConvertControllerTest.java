@@ -135,7 +135,7 @@ public class ConvertControllerTest {
 		
 		ConverterDataUtil.checkResponse(mockMvc.perform(post("/convert").
 			contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-			.andReturn(), 500,null,"MOS-CNV-500");
+			.andReturn(), 500,null,"MOS-CNV-003");
 	}
 
 	/*
@@ -189,7 +189,7 @@ public class ConvertControllerTest {
 		
 		ConverterDataUtil.checkResponse(mockMvc.perform(post("/convert").
 			contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(convertRequestDto)))
-			.andReturn(), 500,null,"MOS-CNV-500");
+			.andReturn(), 500,null,"MOS-CNV-004");
 	}
 
 	/*
@@ -256,7 +256,7 @@ public class ConvertControllerTest {
 		String req=
 		"{" +
 			"\"values\":{" +
-				"\"Left Thumb\": \"4rdHFh+HYoS8oLdVvbUzEVqB8Lvm7kSPnuwF0AAABYQ=\""+
+				"\"Left Thumb\": \"12SGVsbGxyz8gd29ybGQ=\""+
 			"}," +
 			"\"sourceFormat\":\"ISO19794_4_2011\"," +
 			"\"targetFormat\":\"IMAGE/JPEG\"," +
