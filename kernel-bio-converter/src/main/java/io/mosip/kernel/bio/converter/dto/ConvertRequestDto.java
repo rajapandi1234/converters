@@ -26,6 +26,6 @@ public class ConvertRequestDto {
     @NotBlank(message = "TargetFormat code can not be blank")
     @NotEmpty(message = "TargetFormat code can not be empty")
     public String targetFormat;
-    public Map<String, String> sourceParameters;
-    public Map<String, String> targetParameters;
+    public Map<String, String> sourceParameters;	// NOSONAR
+    public Map<String, String> targetParameters;	// NOSONAR
 }
