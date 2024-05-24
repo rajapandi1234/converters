@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.mosip.kernel.bio.converter.constant.ConverterErrorCode;
-//import io.mosip.kernel.core.exception.ExceptionUtils;
 import io.mosip.kernel.core.exception.ServiceError;
 import io.mosip.kernel.core.http.ResponseWrapper;
 import io.mosip.kernel.core.util.EmptyCheckUtils;
@@ -34,16 +33,19 @@ import io.mosip.kernel.core.util.EmptyCheckUtils;
 public class ConversionExceptionAdvice {
 	private static final Logger logger = LoggerFactory.getLogger(ConversionExceptionAdvice.class);
 
-	@Autowired
 	private ObjectMapper objectMapper;
+
+	@Autowired
+	public ConversionExceptionAdvice(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
 
 	@ExceptionHandler(value = { Exception.class, RuntimeException.class, ConversionException.class })
 	public ResponseEntity<ResponseWrapper<ServiceError>> defaultServiceErrorHandler(HttpServletRequest request,
 			Exception e) throws IOException {
 		ResponseWrapper<ServiceError> responseWrapper = setErrors(request);
 		ServiceError error = null;
-		if (e instanceof ConversionException) {
-			ConversionException conversionException = (ConversionException) e;
+		if (e instanceof ConversionException conversionException) {
 			error = new ServiceError(conversionException.getErrorCode(), conversionException.getMessage());
 		} else {
 			error = new ServiceError(ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION.getErrorCode(), e.getMessage());
@@ -52,19 +54,15 @@ public class ConversionExceptionAdvice {
 		logger.error("Exception Root Cause: {} ", e.getMessage());
 		logger.debug("Exception Root Cause:", e);
 
-		// ExceptionUtils.logRootCause(e);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON)
 				.body(responseWrapper);
-
-		// new ResponseEntity<ResponseWrapper<ServiceError>>(responseWrapper,
-		// HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	private ResponseWrapper<ServiceError> setErrors(HttpServletRequest httpServletRequest) throws IOException {
-		ResponseWrapper<ServiceError> responseWrapper = new ResponseWrapper<ServiceError>();
+		ResponseWrapper<ServiceError> responseWrapper = new ResponseWrapper<>();
 		String requestBody = null;
-		if (httpServletRequest instanceof ContentCachingRequestWrapper) {
-			requestBody = new String(((ContentCachingRequestWrapper) httpServletRequest).getContentAsByteArray());
+		if (httpServletRequest instanceof ContentCachingRequestWrapper requestWrapper) {
+			requestBody = new String(requestWrapper.getContentAsByteArray());
 		}
 		if (EmptyCheckUtils.isNullEmpty(requestBody)) {
 			return responseWrapper;

@@ -1,7 +1,5 @@
 package io.mosip.kernel.bio.converter.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -11,12 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.mosip.kernel.bio.converter.constant.ConverterErrorCode;
 import io.mosip.kernel.bio.converter.dto.ConvertRequestDto;
 import io.mosip.kernel.bio.converter.exception.ConversionException;
 import io.mosip.kernel.bio.converter.service.IConverterApi;
 import io.mosip.kernel.bio.converter.service.impl.ConverterServiceImpl;
-import io.mosip.kernel.core.exception.ServiceError;
 import io.mosip.kernel.core.http.RequestWrapper;
 import io.mosip.kernel.core.http.ResponseFilter;
 import io.mosip.kernel.core.http.ResponseWrapper;
@@ -34,9 +30,12 @@ public class ConvertController {
 	/**
 	 * Service instance {@link ConverterServiceImpl}
 	 */
-	@Autowired
 	private IConverterApi converterService;
 
+	@Autowired
+	public ConvertController(IConverterApi converterService) {
+		this.converterService = converterService;
+	}
 	/**
 	 * Verifies mapping of input public key with any machine. if valid returns
 	 * corresponding keyIndex.
@@ -47,8 +46,8 @@ public class ConvertController {
 	@ResponseFilter
 	@PostMapping(value = "/convert", produces = "application/json")
 	public ResponseWrapper<Map<String, String>> convert(
-			@RequestBody @Valid RequestWrapper<ConvertRequestDto> convertRequestDto) throws Exception {
-		ResponseWrapper<Map<String, String>> responseDto = new ResponseWrapper<Map<String, String>>();
+			@RequestBody @Valid RequestWrapper<ConvertRequestDto> convertRequestDto) throws ConversionException {
+		ResponseWrapper<Map<String, String>> responseDto = new ResponseWrapper<>();
 
 		responseDto.setResponse(converterService.convert(convertRequestDto.getRequest().getValues(),
 				convertRequestDto.getRequest().getSourceFormat(), convertRequestDto.getRequest().getTargetFormat(),
