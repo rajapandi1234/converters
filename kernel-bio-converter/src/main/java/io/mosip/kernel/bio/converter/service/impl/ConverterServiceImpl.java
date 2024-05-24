@@ -1,5 +1,8 @@
 package io.mosip.kernel.bio.converter.service.impl;
 
+import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.INVALID_TARGET_EXCEPTION;
+import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.NOT_SUPPORTED_COMPRESSION_TYPE;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -10,7 +13,6 @@ import javax.imageio.ImageIO;
 
 import org.jnbis.api.model.Bitmap;
 import org.jnbis.internal.WsqDecoder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.mosip.biometrics.util.CommonUtil;
@@ -30,9 +32,6 @@ import io.mosip.kernel.bio.converter.constant.TargetFormatCode;
 import io.mosip.kernel.bio.converter.exception.ConversionException;
 import io.mosip.kernel.bio.converter.service.IConverterApi;
 
-import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.INVALID_TARGET_EXCEPTION;
-import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.NOT_SUPPORTED_COMPRESSION_TYPE;
-
 /**
  * This class implements handling conversion of ISO format to JPEG or PNG Image
  * format
@@ -43,10 +42,6 @@ import static io.mosip.kernel.bio.converter.constant.ConverterErrorCode.NOT_SUPP
  */
 @Service
 public class ConverterServiceImpl implements IConverterApi {
-	@Autowired
-	public ConverterServiceImpl() {
-	}
-
 	@Override
 	public Map<String, String> convert(Map<String, String> values, String sourceFormat, String targetFormat,
 			Map<String, String> sourceParameters, Map<String, String> targetParameters) throws ConversionException {
@@ -54,7 +49,7 @@ public class ConverterServiceImpl implements IConverterApi {
 		if (values == null || values.size() == 0)
 			throw new ConversionException(errorCode.getErrorCode(), errorCode.getErrorMessage());
 
-		Map<String, String> targetValues = new HashMap<String, String>();
+		Map<String, String> targetValues = new HashMap<>();
 
 		SourceFormatCode sourceCode = SourceFormatCode.fromCode(sourceFormat);
 		TargetFormatCode targetCode = TargetFormatCode.fromCode(targetFormat);
@@ -118,9 +113,8 @@ public class ConverterServiceImpl implements IConverterApi {
 
 		BufferedImage outImage = null;
 		byte[] outImageData = null;
-		switch (inCompressionType) {
-		case FingerImageCompressionType.JPEG_2000_LOSSY:
-		case FingerImageCompressionType.JPEG_2000_LOSS_LESS:
+		if (inCompressionType == FingerImageCompressionType.JPEG_2000_LOSSY
+				|| inCompressionType == FingerImageCompressionType.JPEG_2000_LOSS_LESS) {
 			try {
 				outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 				// change here outImage width, height, dpi here based on targetParameters
@@ -129,15 +123,13 @@ public class ConverterServiceImpl implements IConverterApi {
 				throw new ConversionException(errorCode.getErrorCode(), e.getLocalizedMessage());
 			}
 			outImageData = convertBufferedImageToBytes(targetCode, outImage);
-			break;
-		case FingerImageCompressionType.WSQ:
+		} else if (inCompressionType == FingerImageCompressionType.WSQ) {
 			WsqDecoder decoder = new WsqDecoder();
 			Bitmap bitmap = decoder.decode(inImageData);
 			outImage = CommonUtil.convert(bitmap);
 			// change here outImage width, height, dpi here based on targetParameters
 			outImageData = convertBufferedImageToBytes(targetCode, outImage);
-			break;
-		default:
+		} else {
 			throw new ConversionException(NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(),
 					NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
@@ -176,9 +168,7 @@ public class ConverterServiceImpl implements IConverterApi {
 
 		BufferedImage outImage = null;
 		byte[] outImageData = null;
-		switch (inImageDataType) {
-		case ImageDataType.JPEG2000_LOSSY:
-		case ImageDataType.JPEG2000_LOSS_LESS:
+		if (inImageDataType == ImageDataType.JPEG2000_LOSSY || inImageDataType == ImageDataType.JPEG2000_LOSS_LESS) {
 			try {
 				outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 				// change here outImage width, height, dpi here based on targetParameters
@@ -187,8 +177,7 @@ public class ConverterServiceImpl implements IConverterApi {
 				throw new ConversionException(errorCode.getErrorCode(), e.getLocalizedMessage());
 			}
 			outImageData = convertBufferedImageToBytes(targetCode, outImage);
-			break;
-		default:
+		} else {
 			throw new ConversionException(NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(),
 					NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
@@ -227,8 +216,7 @@ public class ConverterServiceImpl implements IConverterApi {
 
 		BufferedImage outImage = null;
 		byte[] outImageData = null;
-		switch (inImageFormat) {
-		case ImageFormat.MONO_JPEG2000:
+		if (inImageFormat == ImageFormat.MONO_JPEG2000) {
 			try {
 				outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 				// change here outImage width, height, dpi here based on targetParameters
@@ -237,8 +225,7 @@ public class ConverterServiceImpl implements IConverterApi {
 				throw new ConversionException(errorCode.getErrorCode(), e.getLocalizedMessage());
 			}
 			outImageData = convertBufferedImageToBytes(targetCode, outImage);
-			break;
-		default:
+		} else {
 			throw new ConversionException(NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(),
 					NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
