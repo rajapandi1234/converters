@@ -84,7 +84,8 @@ public class ConverterServiceImpl implements IConverterApi {
 	}
 
 	private String convertFingerIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) throws ConversionException {
+			Map<String, String> targetParameters) // NOSONAR
+			throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 
 		ConvertRequestDto requestDto = new ConvertRequestDto();
@@ -113,8 +114,9 @@ public class ConverterServiceImpl implements IConverterApi {
 
 		BufferedImage outImage = null;
 		byte[] outImageData = null;
-		if (inCompressionType == FingerImageCompressionType.JPEG_2000_LOSSY
-				|| inCompressionType == FingerImageCompressionType.JPEG_2000_LOSS_LESS) {
+		switch (inCompressionType) {
+		case FingerImageCompressionType.JPEG_2000_LOSSY: // NOSONAR
+		case FingerImageCompressionType.JPEG_2000_LOSS_LESS: // NOSONAR
 			try {
 				outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 				// change here outImage width, height, dpi here based on targetParameters
@@ -123,13 +125,15 @@ public class ConverterServiceImpl implements IConverterApi {
 				throw new ConversionException(errorCode.getErrorCode(), e.getLocalizedMessage());
 			}
 			outImageData = convertBufferedImageToBytes(targetCode, outImage);
-		} else if (inCompressionType == FingerImageCompressionType.WSQ) {
+			break;
+		case FingerImageCompressionType.WSQ:
 			WsqDecoder decoder = new WsqDecoder();
 			Bitmap bitmap = decoder.decode(inImageData);
 			outImage = CommonUtil.convert(bitmap);
 			// change here outImage width, height, dpi here based on targetParameters
 			outImageData = convertBufferedImageToBytes(targetCode, outImage);
-		} else {
+			break;
+		default:
 			throw new ConversionException(NOT_SUPPORTED_COMPRESSION_TYPE.getErrorCode(),
 					NOT_SUPPORTED_COMPRESSION_TYPE.getErrorMessage());
 		}
@@ -140,7 +144,8 @@ public class ConverterServiceImpl implements IConverterApi {
 	}
 
 	private String convertFaceIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) throws ConversionException {
+			Map<String, String> targetParameters) // NOSONAR
+			throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 
 		ConvertRequestDto requestDto = new ConvertRequestDto();
@@ -188,7 +193,8 @@ public class ConverterServiceImpl implements IConverterApi {
 	}
 
 	private String convertIrisIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) throws ConversionException {
+			Map<String, String> targetParameters) // NOSONAR
+			throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 
 		ConvertRequestDto requestDto = new ConvertRequestDto();
