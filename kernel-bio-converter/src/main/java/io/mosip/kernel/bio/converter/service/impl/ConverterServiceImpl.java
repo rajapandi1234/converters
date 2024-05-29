@@ -83,8 +83,9 @@ public class ConverterServiceImpl implements IConverterApi {
 		return targetValues;
 	}
 
+	@SuppressWarnings({ "java:S1172", "java:S6208" })
 	private String convertFingerIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) // NOSONAR
+			Map<String, String> targetParameters)
 			throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 
@@ -115,8 +116,8 @@ public class ConverterServiceImpl implements IConverterApi {
 		BufferedImage outImage = null;
 		byte[] outImageData = null;
 		switch (inCompressionType) {
-		case FingerImageCompressionType.JPEG_2000_LOSSY: // NOSONAR
-		case FingerImageCompressionType.JPEG_2000_LOSS_LESS: // NOSONAR
+		case FingerImageCompressionType.JPEG_2000_LOSSY:
+		case FingerImageCompressionType.JPEG_2000_LOSS_LESS:
 			try {
 				outImage = ImageIO.read(new ByteArrayInputStream(inImageData));
 				// change here outImage width, height, dpi here based on targetParameters
@@ -143,9 +144,9 @@ public class ConverterServiceImpl implements IConverterApi {
 		throw new ConversionException(errorCode.getErrorCode(), errorCode.getErrorMessage());
 	}
 
+	@SuppressWarnings({ "java:S1172" })
 	private String convertFaceIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) // NOSONAR
-			throws ConversionException {
+			Map<String, String> targetParameters) throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 
 		ConvertRequestDto requestDto = new ConvertRequestDto();
@@ -192,8 +193,9 @@ public class ConverterServiceImpl implements IConverterApi {
 		throw new ConversionException(errorCode.getErrorCode(), errorCode.getErrorMessage());
 	}
 
+	@SuppressWarnings({ "java:S1172" })
 	private String convertIrisIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) // NOSONAR
+			Map<String, String> targetParameters)
 			throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 

@@ -331,7 +331,7 @@ public class ConvertControllerTest {
 	 */
 	@Test
 	@WithUserDetails("reg-officer")
-	public void t013ConvertTest() // NOSONAR
+	public void t013ConvertTest() 
 			throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/face.txt");
 		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
@@ -351,7 +351,8 @@ public class ConvertControllerTest {
 	 */
 	@Test
 	@WithUserDetails("reg-officer")
-	public void t0131ConvertTest() // NOSONAR
+	@SuppressWarnings({ "java:S4144" })
+	public void t0131ConvertTest() 
 			throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/face.txt");
 		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
