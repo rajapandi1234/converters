@@ -331,7 +331,7 @@ public class ConvertControllerTest {
 	 */
 	@Test
 	@WithUserDetails("reg-officer")
-	public void t013ConvertTest() // 
+	public void t013ConvertTest() 
 			throws Exception {
 		FileInputStream fis = new FileInputStream("src/test/resources/face.txt");
 		String bioData = IOUtils.toString(fis, StandardCharsets.UTF_8);
