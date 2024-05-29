@@ -20,7 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ConverterDataUtil {
 	private static Logger logger = LoggerFactory.getLogger(ConverterDataUtil.class);
 
-	public static void checkResponse(MvcResult rst, long status, SourceFormatCode sourceCode, String expectedCode) // NOSONAR
+	@SuppressWarnings({ "java:S1172", "unchecked" })
+	public static void checkResponse(MvcResult rst, long status, SourceFormatCode sourceCode, String expectedCode) // 
 	{
 		try {
 			ObjectMapper jsonMapper = new ObjectMapper();
