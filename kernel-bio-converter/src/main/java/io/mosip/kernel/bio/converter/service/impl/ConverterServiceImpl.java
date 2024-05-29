@@ -195,7 +195,7 @@ public class ConverterServiceImpl implements IConverterApi {
 
 	@SuppressWarnings({ "java:S1172" })
 	private String convertIrisIsoToImageType(SourceFormatCode sourceCode, String isoData, TargetFormatCode targetCode,
-			Map<String, String> targetParameters) //
+			Map<String, String> targetParameters)
 			throws ConversionException {
 		ConverterErrorCode errorCode = ConverterErrorCode.TECHNICAL_ERROR_EXCEPTION;
 
