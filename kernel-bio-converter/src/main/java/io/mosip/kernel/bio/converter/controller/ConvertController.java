@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.mosip.kernel.bio.converter.dto.ConvertRequestDto;
+import io.mosip.kernel.bio.converter.exception.ConversionException;
 import io.mosip.kernel.bio.converter.service.IConverterApi;
 import io.mosip.kernel.bio.converter.service.impl.ConverterServiceImpl;
 import io.mosip.kernel.core.http.RequestWrapper;
